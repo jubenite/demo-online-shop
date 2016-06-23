@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+org.jboss.tools.openshift.Connection=https\://admin@10.49.160.125\:8443
+org.jboss.tools.openshift.DeployProject=account-service
+org.jboss.tools.openshift.Service=demo-online-shop@mysql-56-centos7
+org.jboss.tools.openshift.SourcePath=${workspace_loc\:/account-service}
