@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: turbine
+
+server:
+  port: ${PORT:8989}
+
+management:
+  port: 8990
+---
+spring:
+  profiles: default
+  cloud:
+    config:
+      uri: http://localhost:8888
+spring.profiles.active: development

@@ -1,0 +1,29 @@
+spring.application.name: zipkin
+spring:
+  profiles:
+    active: development
+---
+logging:
+  level.org.springframework.cloud: INFO  
+server:
+  port: 9411
+spring:
+  profiles: development 
+  rabbitmq:
+    host: 192.168.99.100
+    port: 5672
+  datasource:
+    schema: classpath:/mysql.sql
+    url: jdbc:mysql://192.168.99.100:3306/dev?useSSL=false
+    username: root
+    password: dbpass
+# Switch this on to create the schema on startup:
+    initialize: true
+    continueOnError: true    
+sleuth:
+    enabled: false
+zipkin:
+  store:
+    type: mysql
+  
+logging.file: build/zipkin-server.log
