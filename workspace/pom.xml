@@ -37,11 +37,11 @@
 		<docker.image.prefix>demo</docker.image.prefix>
 		<!-- only for com.spotify plugin  
 		docker.plugin.version>0.3.258</docker.plugin.version-->
-		<!-- for fabric plugin -->
-		<docker.maven.plugin.version>0.15.7</docker.maven.plugin.version>
+		<!-- fabric8 version -->
+    	<fabric8.version>2.2.135</fabric8.version>
+    	<docker.maven.plugin.version>0.15.7</docker.maven.plugin.version>
 		<fabric8.dockerUser>fabric8/</fabric8.dockerUser>
-		<fabric8.version>2.2.135</fabric8.version>
- 	    <fabric8.release.version>${fabric8.version}</fabric8.release.version>
+		<fabric8.release.version>${fabric8.version}</fabric8.release.version>
 	</properties>
 
 	<dependencies>
@@ -56,7 +56,7 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Brixton.RELEASE</version>
+				<version>Brixton.SR1</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

@@ -1,8 +1,36 @@
+server:
+  port: 8888
 spring:
-  profiles:
-    active: development
+ application:
+   name: config-service
 ---
 spring:
-  profiles: development
-  application:
-    name: config-service
+  profiles: default
+  cloud:
+   config:
+    server:
+     git:
+      uri: https://github.com/jubenite/demo-config-repo
+http:
+ proxy:
+  host: 10.49.1.1
+  port: 8080
+---
+spring:
+  profiles: no_proxy
+  cloud:
+   config:
+    server:
+     git:
+      uri: https://github.com/jubenite/demo-config-repo
+
+#logging:
+#native:
+#searchLocations: file:///D:/data/repo_local/microservices/git/demo-config-repo
+#uri: file:///D:/data/repo_local/microservices/git/demo-config-repo
+#git:
+#uri: https://github.com/jubenite/demo-config-repo
+#logging:
+#  level:
+#    org.springframework: DEBUG    
+# file: logs/dev_app.log
