@@ -48,7 +48,7 @@ public class OrderApplication {
     }
 
     @Bean
-    @Profile("docker")
+    @Profile({"docker", "cloud", "development", "default"})
     CommandLineRunner commandLineRunner(DatabaseInitializer databaseInitializer) {
         return args -> {
             // Initialize the database for end to end integration testing

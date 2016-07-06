@@ -1,6 +1,11 @@
 spring:
   application:
     name: inventory-service
+logging:
+  level:
+    org.springframework: INFO
+    org.neo4j.ogm: INFO
+    
 server:
   port: 0
 ---
@@ -14,11 +19,17 @@ spring:
   profiles: default
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: http://${CONFIG_SERVICE_SERVICE_HOST}:${CONFIG_SERVICE_SERVICE_PORT}
 spring.profiles.active: development
 ---
 spring:
   profiles: cloud
   cloud:
     config:
-      uri: ${vcap.services.config-service.credentials.uri:http://localhost:8888}
+       uri: http://${CONFIG_SERVICE_SERVICE_HOST}:${CONFIG_SERVICE_SERVICE_PORT}
+---
+spring:
+  profiles: test
+  cloud:
+    config:
+       uri: http://${CONFIG_SERVICE_SERVICE_HOST}:${CONFIG_SERVICE_SERVICE_PORT}         

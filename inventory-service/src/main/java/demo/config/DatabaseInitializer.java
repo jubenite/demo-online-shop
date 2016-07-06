@@ -1,5 +1,17 @@
 package demo.config;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.neo4j.config.Neo4jConfiguration;
+import org.springframework.stereotype.Service;
+
 import demo.address.Address;
 import demo.address.AddressRepository;
 import demo.catalog.Catalog;
@@ -14,17 +26,9 @@ import demo.shipment.ShipmentRepository;
 import demo.shipment.ShipmentStatus;
 import demo.warehouse.Warehouse;
 import demo.warehouse.WarehouseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
-import org.springframework.data.neo4j.config.Neo4jConfiguration;
-import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
-@Profile({"docker", "cloud", "development"})
+//@Profile({"docker", "cloud", "development", "test"})
 public class DatabaseInitializer {
 
     private ProductRepository productRepository;

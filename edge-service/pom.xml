@@ -64,10 +64,10 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
-        <dependency>
+        <!-- dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-hystrix</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zuul</artifactId>
@@ -76,11 +76,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
-        <dependency>
+        <!-- dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
     </dependencies>
 
     <!-- build>
@@ -212,6 +212,9 @@
 	<profiles>
 		<profile>
 			<id>f8-build</id>
+			<properties>
+				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>				
+			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json</defaultGoal>
 			</build>
@@ -230,6 +233,7 @@
 			<id>f8-local-deploy</id>
 			<properties>
 				<fabric8.recreate>true</fabric8.recreate>
+				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>	
 			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>

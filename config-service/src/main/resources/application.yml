@@ -5,7 +5,19 @@ spring:
    name: config-service
 ---
 spring:
-  profiles: default
+  profiles: development
+  cloud:
+   config:
+    server:
+     git:
+      uri: https://github.com/jubenite/demo-config-repo
+http:
+ proxy:
+  host: 10.49.1.1
+  port: 8080
+---
+spring:
+  profiles: cloud
   cloud:
    config:
     server:

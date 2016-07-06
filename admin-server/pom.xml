@@ -32,7 +32,7 @@
 
 		<fabric8.service.name>${project.artifactId}</fabric8.service.name>
 		<fabric8.service.port>80</fabric8.service.port>
-		<fabric8.service.containerPort>0</fabric8.service.containerPort>
+		<fabric8.service.containerPort>7776</fabric8.service.containerPort>
 		<fabric8.service.type>LoadBalancer</fabric8.service.type>
 
 		<!-- fabric8.readinessProbe.httpGet.port>8080</fabric8.readinessProbe.httpGet.port> 
@@ -44,10 +44,14 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
+		<!-- dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
+		</dependency-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>		
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka</artifactId>
@@ -165,6 +169,9 @@
 	<profiles>
 		<profile>
 			<id>f8-build</id>
+			<properties>		
+				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
+			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json</defaultGoal>
 			</build>
@@ -181,8 +188,9 @@
 		</profile>
 		<profile>
 			<id>f8-local-deploy</id>
-			<properties>
+			<properties>		
 				<fabric8.recreate>true</fabric8.recreate>
+				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
 			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>

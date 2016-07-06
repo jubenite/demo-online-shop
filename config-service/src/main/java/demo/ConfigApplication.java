@@ -35,6 +35,17 @@ public class ConfigApplication implements CommandLineRunner {
 
 		if (httpProxy != null && httpProxy.getHost() != null){
 
+//			Authenticator.setDefault(new Authenticator() {
+//			    protected PasswordAuthentication getPasswordAuthentication() {
+//			        if (getRequestorType() == RequestorType.PROXY) {
+//			            String user = "xxxx"; //System.getProperty("http.proxyUser");
+//			            String password = "yyyy"; //System.getProperty("http.proxyPassword");
+//	                    return new PasswordAuthentication(user, password.toCharArray());
+//			        }
+//			        return null;
+//			    }
+//			});
+			
 			// Enable config server to reach repository via proxy server bug
 			// #146
 			// https://github.com/spring-cloud/spring-cloud-config/issues/146

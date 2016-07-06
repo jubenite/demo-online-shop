@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>online-store-web</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-    <artifactId>online-store-web</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+	<name>event-sourcing/online-store-web</name>
 
-    <name>event-sourcing/online-store-web</name>
+	<parent>
+		<groupId>org.kbastani</groupId>
+		<artifactId>event-sourcing</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
 
-    <parent>
-        <groupId>org.kbastani</groupId>
-        <artifactId>event-sourcing</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../</relativePath>
-    </parent>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
 		<!-- Docker & Fabric8 Configs -->
 		<fabric8.version>2.2.135</fabric8.version>
 		<docker.maven.plugin.version>0.15.7</docker.maven.plugin.version>
@@ -39,68 +38,45 @@
 			<fabric8.readinessProbe.initialDelaySeconds>5</fabric8.readinessProbe.initialDelaySeconds -->
 		<fabric8.label.group>user</fabric8.label.group>
 		<fabric8.iconRef>spring-boot-user</fabric8.iconRef>
-    </properties>
+	</properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-hystrix</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zuul</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-hystrix</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zuul</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-oauth2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
-    <!-- build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build-->
+	<!-- build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
+		<artifactId>spring-boot-maven-plugin</artifactId> </plugin> <plugin> <groupId>com.spotify</groupId> 
+		<artifactId>docker-maven-plugin</artifactId> <version>${docker.plugin.version}</version> 
+		<executions> <execution> <phase>install</phase> <goals> <goal>build</goal> 
+		</goals> </execution> </executions> <configuration> <imageName>${docker.image.prefix}/${project.artifactId}</imageName> 
+		<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory> <resources> 
+		<resource> <targetPath>/</targetPath> <directory>${project.build.directory}</directory> 
+		<include>${project.build.finalName}.jar</include> </resource> </resources> 
+		</configuration> </plugin> </plugins> </build -->
 	<build>
 		<plugins>
 			<!-- Compiler plugin enforces Java 1.7 compatibility and activates annotation 
@@ -188,15 +164,18 @@
 		</plugins>
 	</build>
 
-	<!-- Default sample commands: 
-		mvn -Pf8-build ... build Docker images and 	create OpenShift deployment configs 		
-		mvn -Pf8-deploy ... f8-build + push to 	Docker registry + applying deployment config to OpenShift 		
-		mvn -Pf8-local-deploy ... deployment for a single node setup without pushing to a registry For 
+	<!-- Default sample commands: mvn -Pf8-build ... build Docker images and 
+		create OpenShift deployment configs mvn -Pf8-deploy ... f8-build + push to 
+		Docker registry + applying deployment config to OpenShift mvn -Pf8-local-deploy 
+		... deployment for a single node setup without pushing to a registry For 
 		individual goal usage please consult the fabric8 documentation -->
-		
+
 	<profiles>
 		<profile>
 			<id>f8-build</id>
+			<properties>
+				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
+			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json</defaultGoal>
 			</build>
@@ -215,6 +194,7 @@
 			<id>f8-local-deploy</id>
 			<properties>
 				<fabric8.recreate>true</fabric8.recreate>
+				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
 			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>

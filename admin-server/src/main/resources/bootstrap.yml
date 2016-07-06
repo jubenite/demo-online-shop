@@ -1,8 +1,9 @@
 spring:
   application:
-    name: online-store-web
+    name: admin-server
 server:
-  port: 8787
+  port: 7776
+#spring.boot.admin.context-path: /boot-console
 ---
 spring:
   profiles: docker

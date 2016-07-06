@@ -32,12 +32,16 @@
 	    <fabric8.service.containerPort>8761</fabric8.service.containerPort>
 	    <fabric8.service.type>LoadBalancer</fabric8.service.type>
 
+		<!-- fabric8.resources.limits.memory>256Mi</fabric8.resources.limits.memory-->
+
 	    <!-- fabric8.readinessProbe.httpGet.port>8080</fabric8.readinessProbe.httpGet.port>
 	    <fabric8.readinessProbe.httpGet.path>/</fabric8.readinessProbe.httpGet.path>
 	    <fabric8.readinessProbe.timeoutSeconds>30</fabric8.readinessProbe.timeoutSeconds>
 	    <fabric8.readinessProbe.initialDelaySeconds>5</fabric8.readinessProbe.initialDelaySeconds-->
 	    <fabric8.label.group>discovery</fabric8.label.group>
 	    <fabric8.iconRef>spring-boot-discovery</fabric8.iconRef>        
+
+
     </properties>
 
     <dependencies>
@@ -49,11 +53,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka-server</artifactId>
         </dependency>
-        <dependency>
+        <!-- dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
     </dependencies>
 
     <!--  com.spotify plugin

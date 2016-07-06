@@ -2,6 +2,9 @@ package demo.config;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +14,7 @@ import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.core.convert.CustomConversions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -28,10 +32,21 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
 
     @Value("${spring.data.mongodb.port}")
     private Integer port;
+    
+    @Value("${spring.data.mongodb.username}")
+    private String username;
 
+    @Value("${spring.data.mongodb.password}")
+    private String password;
+    
+    @Value("${spring.data.mongodb.db}")
+    private String db;
+    
     @Bean
     public Mongo mongo() throws Exception {
-        return new MongoClient(host, port);
+    	ServerAddress sa = new ServerAddress(host, port);
+    	MongoCredential mongoCredential =  MongoCredential.createMongoCRCredential(username, db, ((password!=null)?password.toCharArray():null));
+    	return new MongoClient(sa, Arrays.asList(mongoCredential));
     }
 
     @Override

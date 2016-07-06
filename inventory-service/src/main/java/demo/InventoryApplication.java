@@ -1,9 +1,5 @@
 package demo;
 
-import demo.catalog.Catalog;
-import demo.config.DatabaseInitializer;
-import demo.product.Product;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,12 +16,17 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import demo.catalog.Catalog;
+import demo.config.DatabaseInitializer;
+import demo.product.Product;
+
 @SpringBootApplication
 @EnableNeo4jRepositories
 @EnableConfigurationProperties
 @EnableTransactionManagement
 @EnableEurekaClient
 @EnableHystrix
+
 public class InventoryApplication {
 	
  	@Bean
@@ -46,7 +47,7 @@ public class InventoryApplication {
     }
 
     @Bean
-    @Profile({"docker", "cloud", "development"})
+    @Profile({"docker", "cloud", "development", "test"})
     CommandLineRunner commandLineRunner(DatabaseInitializer databaseInitializer) {
         return args -> {
             // Initialize the database for end to end integration testing

@@ -19,7 +19,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<spring-data-neo4j.version>4.0.0.RELEASE</spring-data-neo4j.version>
+		<spring-data-neo4j.version>4.1.2.RELEASE</spring-data-neo4j.version>
+		<neo4j.version>2.3.2</neo4j.version>
+ 		<neo4j-ogm.version>2.0.3</neo4j-ogm.version>
 		<!-- Docker & Fabric8 Configs -->
 		<fabric8.version>2.2.135</fabric8.version>
 		<docker.maven.plugin.version>0.15.7</docker.maven.plugin.version>
@@ -59,34 +61,67 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-hystrix</artifactId>
 		</dependency>
-		<!-- dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-netflix-hystrix-stream</artifactId>
-		</dependency>		
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-stream-rabbit</artifactId>
-		</dependency-->
+		<!-- dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-netflix-hystrix-stream</artifactId> 
+			</dependency> <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-starter-stream-rabbit</artifactId> 
+			</dependency -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
-		<!-- dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-sleuth-stream</artifactId>
-		</dependency-->
+		<!-- dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-sleuth-stream</artifactId> 
+			</dependency -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
 		</dependency>
-		<!-- dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
-		</dependency-->
+		<!-- dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-stream-binder-rabbit</artifactId> 
+			</dependency -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-neo4j</artifactId>
-			<version>${spring-data-neo4j.version}</version>
+			<version>${spring-data-neo4j.version}</version><!--$NO-MVN-MAN-VER$ -->
+		</dependency>
+		
+		<!-- add this dependency if you want to use the embedded driver -->
+		<dependency>
+    		<groupId>org.neo4j</groupId>
+    		<artifactId>neo4j-ogm-embedded-driver</artifactId>
+    		<version>${neo4j-ogm.version}</version>
+		</dependency>
+
+		<!-- Neo4j testing -->
+		  <dependency>
+           <groupId>org.springframework.data</groupId>
+           <artifactId>spring-data-neo4j</artifactId>
+           <version>${spring-data-neo4j.version}</version>
+           <type>test-jar</type>
+       </dependency>
+
+         <!-- the neo4j-ogm-test jar provides access to the http and embedded drivers for testing purposes -->
+        <dependency>
+          <groupId>org.neo4j</groupId>
+          <artifactId>neo4j-ogm-test</artifactId>
+          <version>${neo4j-ogm.version}</version>
+          <!-- type>test-jar</type-->
+          <scope>test</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-kernel</artifactId>
+			<version>${neo4j.version}</version>
+			<type>test-jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j.app</groupId>
+			<artifactId>neo4j-server</artifactId>
+			<version>${neo4j.version}</version>
+			<type>test-jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j.test</groupId>
+			<artifactId>neo4j-harness</artifactId>
+			<version>${neo4j.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -95,39 +130,28 @@
 		</dependency>
 	</dependencies>
 
-	<!--  build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>${docker.plugin.version}</version>
-				<executions>
-					<execution>
-						<phase>install</phase>
-						<goals>
-							<goal>build</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-					<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-					<resources>
-						<resource>
-							<targetPath>/</targetPath>
-							<directory>${project.build.directory}</directory>
-							<include>${project.build.finalName}.jar</include>
-						</resource>
-					</resources>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build-->
-		<build>
+	<dependencyManagement>
+ 	 <dependencies>
+    	<dependency>
+        	<groupId>org.springframework.data</groupId>
+        	<artifactId>spring-data-releasetrain</artifactId>
+        	<version>Hopper-SR1</version>
+        	<type>pom</type>
+        	<scope>import</scope>
+    	</dependency>
+  	</dependencies>
+	</dependencyManagement>
+
+	<!-- build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
+		<artifactId>spring-boot-maven-plugin</artifactId> </plugin> <plugin> <groupId>com.spotify</groupId> 
+		<artifactId>docker-maven-plugin</artifactId> <version>${docker.plugin.version}</version> 
+		<executions> <execution> <phase>install</phase> <goals> <goal>build</goal> 
+		</goals> </execution> </executions> <configuration> <imageName>${docker.image.prefix}/${project.artifactId}</imageName> 
+		<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory> <resources> 
+		<resource> <targetPath>/</targetPath> <directory>${project.build.directory}</directory> 
+		<include>${project.build.finalName}.jar</include> </resource> </resources> 
+		</configuration> </plugin> </plugins> </build -->
+	<build>
 		<plugins>
 			<!-- Compiler plugin enforces Java 1.7 compatibility and activates annotation 
 				processors -->
@@ -223,6 +247,9 @@
 	<profiles>
 		<profile>
 			<id>f8-build</id>
+			<properties>
+				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
+			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json</defaultGoal>
 			</build>
@@ -241,6 +268,7 @@
 			<id>f8-local-deploy</id>
 			<properties>
 				<fabric8.recreate>true</fabric8.recreate>
+				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>				
 			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>

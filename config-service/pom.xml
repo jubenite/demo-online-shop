@@ -52,13 +52,15 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
 		</dependency>
-		<!-- dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-stream-binder-rabbit</artifactId> 
+		<!-- dependency> 
+			<groupId>org.springframework.cloud</groupId> 
+			<artifactId>spring-cloud-stream-binder-rabbit</artifactId> 
 			</dependency -->
-		<dependency>
+		<!-- dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
+		</dependency -->
 	</dependencies>
 
 	<!-- build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
@@ -166,6 +168,9 @@
 	<profiles>
 		<profile>
 			<id>f8-build</id>
+			<properties>
+				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
+			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json</defaultGoal>
 			</build>
@@ -184,6 +189,7 @@
 			<id>f8-local-deploy</id>
 			<properties>
 				<fabric8.recreate>true</fabric8.recreate>
+				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
 			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>

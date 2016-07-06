@@ -231,6 +231,9 @@
 	<profiles>
 		<profile>
 			<id>f8-build</id>
+			<properties>
+				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
+			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json</defaultGoal>
 			</build>
@@ -249,6 +252,9 @@
 			<id>f8-local-deploy</id>
 			<properties>
 				<fabric8.recreate>true</fabric8.recreate>
+				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>	
+				<fabric8.env.MONGODB_SERVICE_HOST>172.30.143.96</fabric8.env.MONGODB_SERVICE_HOST>
+				<fabric8.env.MONGODB_SERVICE_PORT>27017</fabric8.env.MONGODB_SERVICE_PORT>
 			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>
