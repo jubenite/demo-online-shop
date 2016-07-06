@@ -102,17 +102,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -126,16 +125,6 @@
 		</dependency>
 	</dependencies>
 
-	<!-- build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
-		<artifactId>spring-boot-maven-plugin</artifactId> </plugin> <plugin> <groupId>com.spotify</groupId> 
-		<artifactId>docker-maven-plugin</artifactId> <version>${docker.plugin.version}</version> 
-		<executions> <execution> <phase>install</phase> <goals> <goal>build</goal> 
-		</goals> </execution> </executions> <configuration> <imageName>${docker.image.prefix}/${project.artifactId}</imageName> 
-		<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory> <resources> 
-		<resource> <targetPath>/</targetPath> <directory>${project.build.directory}</directory> 
-		<include>${project.build.finalName}.jar</include> </resource> </resources> 
-		</configuration> </plugin> </plugins> </build -->
-	
 	<build>
 		<plugins>
 			<!-- Compiler plugin enforces Java 1.7 compatibility and activates annotation 
@@ -227,8 +216,7 @@
 		mvn -Pf8-build ... build Docker images and 	create OpenShift deployment configs 		
 		mvn -Pf8-deploy ... f8-build + push to 	Docker registry + applying deployment config to OpenShift 		
 		mvn -Pf8-local-deploy ... deployment for a single node setup without pushing to a registry For 
-		individual goal usage please consult the fabric8 documentation -->
-		
+		individual goal usage please consult the fabric8 documentation -->		
 	<profiles>
 		<profile>
 			<id>f8-build</id>

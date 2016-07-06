@@ -25,7 +25,6 @@
 		<fabric8.dockerUser>fabric8/</fabric8.dockerUser>
 		<docker.from>fabric8/java-jboss-openjdk8-jdk:1.0.13</docker.from>
 		<docker.image>${fabric8.dockerUser}${project.artifactId}:${project.version}</docker.image>
-
 		<docker.port.container.jolokia>8778</docker.port.container.jolokia>
 
 		<fabric8.service.name>${project.artifactId}</fabric8.service.name>
@@ -50,10 +49,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
+        <!-- dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-hateoas</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
@@ -91,11 +90,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!-- dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.6</version>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-core</artifactId>
@@ -103,38 +102,6 @@
         </dependency>
     </dependencies>
 
-    <!-- build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build-->
 	<build>
 		<plugins>
 			<!-- Compiler plugin enforces Java 1.7 compatibility and activates annotation 
@@ -261,5 +228,4 @@
 			</build>
 		</profile>
 	</profiles>
-
 </project>

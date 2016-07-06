@@ -81,10 +81,10 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-feign</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -96,27 +96,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+		<!-- dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-		</dependency>
+		</dependency-->
 	</dependencies>
-
-	<!-- build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
-		<artifactId>spring-boot-maven-plugin</artifactId> <executions> <execution> 
-		<goals> <goal>repackage</goal> </goals> </execution> </executions> </plugin> 
-		<plugin> <groupId>com.spotify</groupId> <artifactId>docker-maven-plugin</artifactId> 
-		<version>${docker.plugin.version}</version> <executions> <execution> <phase>install</phase> 
-		<goals> <goal>build</goal> </goals> </execution> </executions> <configuration> 
-		<imageName>${docker.image.prefix}/${project.artifactId}</imageName> <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory> 
-		<resources> <resource> <targetPath>/</targetPath> <directory>${project.build.directory}</directory> 
-		<include>${project.build.finalName}.jar</include> </resource> </resources> 
-		</configuration> </plugin> </plugins> </build -->
-		
+	
 	<build>
 		<plugins>
 			<!-- Compiler plugin enforces Java 1.7 compatibility and activates annotation 

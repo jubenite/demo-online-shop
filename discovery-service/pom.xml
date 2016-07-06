@@ -15,6 +15,7 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
      	<java.version>1.8</java.version>
@@ -33,15 +34,12 @@
 	    <fabric8.service.type>LoadBalancer</fabric8.service.type>
 
 		<!-- fabric8.resources.limits.memory>256Mi</fabric8.resources.limits.memory-->
-
 	    <!-- fabric8.readinessProbe.httpGet.port>8080</fabric8.readinessProbe.httpGet.port>
 	    <fabric8.readinessProbe.httpGet.path>/</fabric8.readinessProbe.httpGet.path>
 	    <fabric8.readinessProbe.timeoutSeconds>30</fabric8.readinessProbe.timeoutSeconds>
 	    <fabric8.readinessProbe.initialDelaySeconds>5</fabric8.readinessProbe.initialDelaySeconds-->
 	    <fabric8.label.group>discovery</fabric8.label.group>
-	    <fabric8.iconRef>spring-boot-discovery</fabric8.iconRef>        
-
-
+	    <fabric8.iconRef>spring-boot-discovery</fabric8.iconRef>
     </properties>
 
     <dependencies>
@@ -59,40 +57,6 @@
             <scope>test</scope>
         </dependency-->
     </dependencies>
-
-    <!--  com.spotify plugin
-    	build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build-->
 
   <build>
     <plugins>

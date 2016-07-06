@@ -115,14 +115,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency-->
-		<dependency>
+		<!--  dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-		</dependency>
+		</dependency-->
 	</dependencies>
 
 	<!-- build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
