@@ -2,13 +2,7 @@ spring:
   application:
     name: account-service
 server:
-  port: 0
----
-spring:
-  profiles: docker
-  cloud:
-    config:
-      uri: http://config-service:8888
+  port: 7000
 ---
 spring:
   profiles: default
@@ -16,6 +10,12 @@ spring:
     config:
       uri: http://${CONFIG_SERVICE_SERVICE_HOST}:${CONFIG_SERVICE_SERVICE_PORT}
 spring.profiles.active: development
+---
+spring:
+  profiles: docker
+  cloud:
+    config:
+      uri: http://config-service:8888
 ---
 spring:
   profiles: cloud

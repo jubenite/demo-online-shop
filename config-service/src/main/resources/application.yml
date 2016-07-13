@@ -5,12 +5,13 @@ spring:
    name: config-service
 ---
 spring:
-  profiles: development
+  profiles: default
   cloud:
    config:
     server:
      git:
       uri: https://github.com/jubenite/demo-config-repo
+spring.profiles.active: development
 http:
  proxy:
   host: 10.49.1.1

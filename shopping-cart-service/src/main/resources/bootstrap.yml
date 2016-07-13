@@ -2,7 +2,7 @@ spring:
   application:
     name: shopping-cart-service
 server:
-  port: 0
+  port: 7004
 ---
 spring:
   profiles: docker

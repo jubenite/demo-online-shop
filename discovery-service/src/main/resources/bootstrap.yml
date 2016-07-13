@@ -1,5 +1,16 @@
-server:
-  port: 8761
 spring:
   application:
     name: discovery-service
+---
+spring:
+  profiles: default
+  cloud:
+    config:
+      uri: http://${CONFIG_SERVICE_SERVICE_HOST}:${CONFIG_SERVICE_SERVICE_PORT}
+spring.profiles.active: development
+---
+spring:
+  profiles: peer1,peer2
+  cloud:
+    config:
+      uri: http://${CONFIG_SERVICE_SERVICE_HOST}:${CONFIG_SERVICE_SERVICE_PORT}

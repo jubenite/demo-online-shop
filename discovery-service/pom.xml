@@ -3,11 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>discovery-service</artifactId>
+    <artifactId>discovery-service-${discovery.service.peer}</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>event-sourcing/discovery-service</name>
+    <name>event-sourcing/discovery-service-${discovery.service.peer}</name>
 
     <parent>
         <groupId>org.kbastani</groupId>
@@ -17,15 +17,15 @@
     </parent>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <discovery.service.peer>peer1</discovery.service.peer>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>     	
      	<java.version>1.8</java.version>
 	    <!-- Docker & Fabric8 Configs -->
     	<fabric8.version>2.2.135</fabric8.version>
     	<docker.maven.plugin.version>0.15.7</docker.maven.plugin.version>
     	<fabric8.dockerUser>fabric8/</fabric8.dockerUser>
     	<docker.from>fabric8/java-jboss-openjdk8-jdk:1.0.13</docker.from>
-    	<docker.image>${fabric8.dockerUser}${project.artifactId}:${project.version}</docker.image>
-    	
+    	<docker.image>${fabric8.dockerUser}${project.artifactId}:${project.version}</docker.image>	
     	<docker.port.container.jolokia>8778</docker.port.container.jolokia>
 
 	    <fabric8.service.name>${project.artifactId}</fabric8.service.name>
@@ -40,13 +40,15 @@
 	    <fabric8.readinessProbe.initialDelaySeconds>5</fabric8.readinessProbe.initialDelaySeconds-->
 	    <fabric8.label.group>discovery</fabric8.label.group>
 	    <fabric8.iconRef>spring-boot-discovery</fabric8.iconRef>
+    
+    	<!-- fabric8.parameter.SPRING_PROFILE_ACTIVE.description>Spring Profile</fabric8.parameter.SPRING_PROFILE_ACTIVE.description-->
     </properties>
 
     <dependencies>
-        <!-- dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency-->
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka-server</artifactId>
@@ -135,6 +137,7 @@
                 </assembly>
                 <env>
                   <JAVA_APP_JAR>${project.build.finalName}.jar</JAVA_APP_JAR>
+                  <JAVA_OPTIONS>-Xmx64m -Xss256k</JAVA_OPTIONS>
                 </env>
               </build>
             </image>
@@ -144,40 +147,44 @@
     </plugins>
   </build>
 
-  <!--
-  Default sample commands:
-
-  mvn -Pf8-build         ... build Docker images and create OpenShift deployment configs
-  mvn -Pf8-deploy        ... f8-build + push to Docker registry + applying deployment config to OpenShift
-  mvn -Pf8-local-deploy ... deployment for a single node setup without pushing to a registry
-
-  For individual goal usage please consult the fabric8 documentation
-  -->
-  <profiles>
-    <profile>
-      <id>f8-build</id>
-      <build>
-        <defaultGoal>clean install docker:build fabric8:json</defaultGoal>
-      </build>
-    </profile>
-    <profile>
-      <id>f8-deploy</id>
-      <properties>
-        <fabric8.imagePullPolicySnapshot>Always</fabric8.imagePullPolicySnapshot>
-        <fabric8.recreate>true</fabric8.recreate>
-      </properties>
-      <build>
-        <defaultGoal>clean install docker:build docker:push fabric8:json fabric8:apply</defaultGoal>
-      </build>
-    </profile>
-    <profile>
-      <id>f8-local-deploy</id>
-      <properties>
-        <fabric8.recreate>true</fabric8.recreate>
-      </properties>
-      <build>
-        <defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>
-      </build>
-    </profile>
-  </profiles>
+	<!-- Default sample commands: 
+		mvn -Pf8-build ... build Docker images and create OpenShift deployment configs
+		mvn -Pf8-deploy-registry ... f8-build + push to Docker registry + applying deployment config to OpenShift
+		mvn -Pf8-deploy-node ... deployment for a single node setup without pushing to a registry
+		mvn -Pf8-update-node ... update image and recreate pods without a deployment in Kubernetes
+		For individual goal usage please consult the fabric8 documentation -->
+	<profiles>
+		<profile>
+			<id>f8-build</id>
+			<build>
+				<defaultGoal>clean install docker:build fabric8:json</defaultGoal>
+			</build>
+		</profile>
+		<profile>
+			<id>f8-deploy-registry</id>
+			<properties>
+				<fabric8.imagePullPolicySnapshot>Always</fabric8.imagePullPolicySnapshot>
+				<fabric8.recreate>true</fabric8.recreate>
+			</properties>
+			<build>
+				<defaultGoal>clean install docker:build docker:push fabric8:json fabric8:apply</defaultGoal>
+			</build>
+		</profile>
+		<profile>
+			<id>f8-deploy-node</id>
+			<properties>
+				<fabric8.recreate>true</fabric8.recreate>
+				<fabric8.env.SPRING_PROFILES_ACTIVE>${discovery.service.peer}</fabric8.env.SPRING_PROFILES_ACTIVE>
+			</properties>
+			<build>
+				<defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>
+			</build>
+		</profile>
+		<profile>
+			<id>f8-update-node</id>
+			<build>
+				<defaultGoal>clean install docker:build fabric8:delete-pods</defaultGoal>
+			</build>
+		</profile>
+	</profiles>
 </project>

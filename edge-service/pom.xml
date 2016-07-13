@@ -161,6 +161,7 @@
 								</assembly>
 								<env>
 									<JAVA_APP_JAR>${project.build.finalName}.jar</JAVA_APP_JAR>
+									<JAVA_OPTIONS>-Xmx128m -Xss256k</JAVA_OPTIONS>
 								</env>
 							</build>
 						</image>

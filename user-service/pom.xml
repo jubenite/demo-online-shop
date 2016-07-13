@@ -213,6 +213,7 @@
 								</assembly>
 								<env>
 									<JAVA_APP_JAR>${project.build.finalName}.jar</JAVA_APP_JAR>
+									<JAVA_OPTIONS>-Xmx128m -Xss256k</JAVA_OPTIONS>
 								</env>
 							</build>
 						</image>
@@ -221,13 +222,13 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	
 	<!-- Default sample commands: 
-		mvn -Pf8-build ... build Docker images and 	create OpenShift deployment configs 		
-		mvn -Pf8-deploy ... f8-build + push to 	Docker registry + applying deployment config to OpenShift 		
-		mvn -Pf8-local-deploy ... deployment for a single node setup without pushing to a registry For 
-		individual goal usage please consult the fabric8 documentation -->
-		
+		mvn -Pf8-build ... build Docker images and create OpenShift deployment configs
+		mvn -Pf8-deploy-registry ... f8-build + push to Docker registry + applying deployment config to OpenShift
+		mvn -Pf8-deploy-node ... deployment for a single node setup without pushing to a registry
+		mvn -Pf8-update-node ... update image and recreate pods without a deployment in Kubernetes
+		For individual goal usage please consult the fabric8 documentation -->
 	<profiles>
 		<profile>
 			<id>f8-build</id>
@@ -239,7 +240,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>f8-deploy</id>
+			<id>f8-deploy-registry</id>
 			<properties>
 				<fabric8.imagePullPolicySnapshot>Always</fabric8.imagePullPolicySnapshot>
 				<fabric8.recreate>true</fabric8.recreate>
@@ -249,16 +250,27 @@
 			</build>
 		</profile>
 		<profile>
-			<id>f8-local-deploy</id>
+			<id>f8-deploy-node</id>
 			<properties>
 				<fabric8.recreate>true</fabric8.recreate>
 				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
 				<fabric8.env.MYSQL_SERVICE_HOST>172.30.233.72</fabric8.env.MYSQL_SERVICE_HOST>
 				<fabric8.env.MYSQL_SERVICE_PORT>3306</fabric8.env.MYSQL_SERVICE_PORT>
-			</properties>		
+			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>
 			</build>
 		</profile>
-	</profiles>		
+		<profile>
+			<id>f8-update-node</id>
+			<properties>
+				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
+				<fabric8.env.MYSQL_SERVICE_HOST>172.30.233.72</fabric8.env.MYSQL_SERVICE_HOST>
+				<fabric8.env.MYSQL_SERVICE_PORT>3306</fabric8.env.MYSQL_SERVICE_PORT>				
+			</properties>
+			<build>
+				<defaultGoal>clean install docker:build fabric8:delete-pods</defaultGoal>
+			</build>
+		</profile>
+	</profiles>
 </project>
