@@ -1,9 +1,6 @@
 spring:
   application:
     name: user-service
-logging:
-  level:
-    org.springframework: INFO    
 ---
 spring:
   profiles: default
@@ -24,4 +21,5 @@ spring:
   profiles: cloud
   cloud:
     config:
-      uri: http://${CONFIG_SERVICE_SERVICE_HOST}:${CONFIG_SERVICE_SERVICE_PORT}
+     uri: http://config-service
+#uri: http://${CONFIG_SERVICE_SERVICE_HOST}:${CONFIG_SERVICE_SERVICE_PORT}

@@ -4,14 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>order-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>event-sourcing/order-service</name>
+    <name>demo/order-service</name>
 
     <parent>
-        <groupId>org.kbastani</groupId>
-        <artifactId>event-sourcing</artifactId>
+		<groupId>org.t-systems</groupId>
+		<artifactId>demo-online-shop</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
@@ -29,7 +28,7 @@
 
 		<fabric8.service.name>${project.artifactId}</fabric8.service.name>
 		<fabric8.service.port>80</fabric8.service.port>
-		<fabric8.service.containerPort>7003</fabric8.service.containerPort>
+		<fabric8.service.containerPort>8080</fabric8.service.containerPort>
 		<fabric8.service.type>LoadBalancer</fabric8.service.type>
 
 		<!-- fabric8.readinessProbe.httpGet.port>8080</fabric8.readinessProbe.httpGet.port> 
@@ -49,10 +48,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-hateoas</artifactId>
-        </dependency-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
@@ -90,11 +85,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.6</version>
-        </dependency-->
         <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-core</artifactId>
@@ -221,8 +211,6 @@
 			<properties>
 				<fabric8.recreate>true</fabric8.recreate>
 				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
-				<fabric8.env.MONGODB_SERVICE_HOST>172.30.143.96</fabric8.env.MONGODB_SERVICE_HOST>
-				<fabric8.env.MONGODB_SERVICE_PORT>27017</fabric8.env.MONGODB_SERVICE_PORT>
 			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>
@@ -230,11 +218,6 @@
 		</profile>
 		<profile>
 			<id>f8-update-node</id>
-			<properties>
-				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
-				<fabric8.env.MONGODB_SERVICE_HOST>172.30.143.96</fabric8.env.MONGODB_SERVICE_HOST>
-				<fabric8.env.MONGODB_SERVICE_PORT>27017</fabric8.env.MONGODB_SERVICE_PORT>
-			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:delete-pods</defaultGoal>
 			</build>

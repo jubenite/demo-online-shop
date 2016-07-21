@@ -3,21 +3,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>discovery-service-${discovery.service.peer}</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>discovery-service-peer2</artifactId>
     <packaging>jar</packaging>
 
-    <name>event-sourcing/discovery-service-${discovery.service.peer}</name>
+    <name>demo/discovery-service-${discovery.service.peer}</name>
 
     <parent>
-        <groupId>org.kbastani</groupId>
-        <artifactId>event-sourcing</artifactId>
+		<groupId>org.t-systems</groupId>
+		<artifactId>demo-online-shop</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
 
     <properties>
-        <discovery.service.peer>peer1</discovery.service.peer>
+        <discovery.service.peer>peer2</discovery.service.peer>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>     	
      	<java.version>1.8</java.version>
 	    <!-- Docker & Fabric8 Configs -->
@@ -30,18 +29,16 @@
 
 	    <fabric8.service.name>${project.artifactId}</fabric8.service.name>
 	    <fabric8.service.port>80</fabric8.service.port>
-	    <fabric8.service.containerPort>8761</fabric8.service.containerPort>
+	    <fabric8.service.containerPort>8080</fabric8.service.containerPort>
 	    <fabric8.service.type>LoadBalancer</fabric8.service.type>
 
 		<!-- fabric8.resources.limits.memory>256Mi</fabric8.resources.limits.memory-->
-	    <!-- fabric8.readinessProbe.httpGet.port>8080</fabric8.readinessProbe.httpGet.port>
+	    <!-- fabric8.readinessProbe.httpGet.port>8761</fabric8.readinessProbe.httpGet.port>
 	    <fabric8.readinessProbe.httpGet.path>/</fabric8.readinessProbe.httpGet.path>
 	    <fabric8.readinessProbe.timeoutSeconds>30</fabric8.readinessProbe.timeoutSeconds>
 	    <fabric8.readinessProbe.initialDelaySeconds>5</fabric8.readinessProbe.initialDelaySeconds-->
 	    <fabric8.label.group>discovery</fabric8.label.group>
-	    <fabric8.iconRef>spring-boot-discovery</fabric8.iconRef>
-    
-    	<!-- fabric8.parameter.SPRING_PROFILE_ACTIVE.description>Spring Profile</fabric8.parameter.SPRING_PROFILE_ACTIVE.description-->
+	    <fabric8.iconRef>spring-boot-discovery</fabric8.iconRef>    
     </properties>
 
     <dependencies>

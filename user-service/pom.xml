@@ -4,14 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>user-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>event-sourcing/user-service</name>
+	<name>demo/user-service</name>
 
 	<parent>
-		<groupId>org.kbastani</groupId>
-		<artifactId>event-sourcing</artifactId>
+		<groupId>org.t-systems</groupId>
+		<artifactId>demo-online-shop</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
@@ -30,13 +29,14 @@
 
 		<fabric8.service.name>${project.artifactId}</fabric8.service.name>
 		<fabric8.service.port>80</fabric8.service.port>
-		<fabric8.service.containerPort>8181</fabric8.service.containerPort>
+		<fabric8.service.containerPort>8080</fabric8.service.containerPort>
 		<fabric8.service.type>LoadBalancer</fabric8.service.type>
 
 		<!-- fabric8.readinessProbe.httpGet.port>8080</fabric8.readinessProbe.httpGet.port> 
 			<fabric8.readinessProbe.httpGet.path>/</fabric8.readinessProbe.httpGet.path> 
 			<fabric8.readinessProbe.timeoutSeconds>30</fabric8.readinessProbe.timeoutSeconds> 
 			<fabric8.readinessProbe.initialDelaySeconds>5</fabric8.readinessProbe.initialDelaySeconds -->
+		<!-- fabric8.label.hystrix.enabled>true</fabric8.label.hystrix.enabled-->	
 		<fabric8.label.group>user</fabric8.label.group>
 		<fabric8.iconRef>spring-boot-user</fabric8.iconRef>
 	</properties>
@@ -115,26 +115,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency-->
-		<!--  dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-		</dependency-->
 	</dependencies>
-
-	<!-- build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
-		<artifactId>spring-boot-maven-plugin</artifactId> </plugin> <plugin> <groupId>com.spotify</groupId> 
-		<artifactId>docker-maven-plugin</artifactId> <version>${docker.plugin.version}</version> 
-		<executions> <execution> <phase>install</phase> <goals> <goal>build</goal> 
-		</goals> </execution> </executions> <configuration> <imageName>${docker.image.prefix}/${project.artifactId}</imageName> 
-		<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory> <resources> 
-		<resource> <targetPath>/</targetPath> <directory>${project.build.directory}</directory> 
-		<include>${project.build.finalName}.jar</include> </resource> </resources> 
-		</configuration> </plugin> </plugins> </build -->
-
     <build>
 		<plugins>
 			<!-- Compiler plugin enforces Java 1.7 compatibility and activates annotation 
@@ -254,8 +235,6 @@
 			<properties>
 				<fabric8.recreate>true</fabric8.recreate>
 				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
-				<fabric8.env.MYSQL_SERVICE_HOST>172.30.233.72</fabric8.env.MYSQL_SERVICE_HOST>
-				<fabric8.env.MYSQL_SERVICE_PORT>3306</fabric8.env.MYSQL_SERVICE_PORT>
 			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>
@@ -263,11 +242,6 @@
 		</profile>
 		<profile>
 			<id>f8-update-node</id>
-			<properties>
-				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
-				<fabric8.env.MYSQL_SERVICE_HOST>172.30.233.72</fabric8.env.MYSQL_SERVICE_HOST>
-				<fabric8.env.MYSQL_SERVICE_PORT>3306</fabric8.env.MYSQL_SERVICE_PORT>				
-			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:delete-pods</defaultGoal>
 			</build>

@@ -4,14 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>account-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>event-sourcing/account-service</name>
+	<name>demo/account-service</name>
 
 	<parent>
-		<groupId>org.kbastani</groupId>
-		<artifactId>event-sourcing</artifactId>
+		<groupId>org.t-systems</groupId>
+		<artifactId>demo-online-shop</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
@@ -31,7 +30,7 @@
 
 		<fabric8.service.name>${project.artifactId}</fabric8.service.name>
 		<fabric8.service.port>80</fabric8.service.port>
-		<fabric8.service.containerPort>7000</fabric8.service.containerPort>
+		<fabric8.service.containerPort>8080</fabric8.service.containerPort>
 		<fabric8.service.type>LoadBalancer</fabric8.service.type>
 
 		<!-- fabric8.readinessProbe.httpGet.port>8080</fabric8.readinessProbe.httpGet.port> 
@@ -96,14 +95,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-		</dependency-->
 	</dependencies>
 	
 	<build>
@@ -225,8 +216,6 @@
 			<properties>
 				<fabric8.recreate>true</fabric8.recreate>
 				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
-				<fabric8.env.MYSQL_SERVICE_HOST>172.30.233.72</fabric8.env.MYSQL_SERVICE_HOST>
-				<fabric8.env.MYSQL_SERVICE_PORT>3306</fabric8.env.MYSQL_SERVICE_PORT>
 			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>
@@ -234,11 +223,6 @@
 		</profile>
 		<profile>
 			<id>f8-update-node</id>
-			<properties>
-				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
-				<fabric8.env.MYSQL_SERVICE_HOST>172.30.233.72</fabric8.env.MYSQL_SERVICE_HOST>
-				<fabric8.env.MYSQL_SERVICE_PORT>3306</fabric8.env.MYSQL_SERVICE_PORT>
-			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:delete-pods</defaultGoal>
 			</build>

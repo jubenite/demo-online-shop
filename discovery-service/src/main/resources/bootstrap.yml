@@ -13,4 +13,5 @@ spring:
   profiles: peer1,peer2
   cloud:
     config:
-      uri: http://${CONFIG_SERVICE_SERVICE_HOST}:${CONFIG_SERVICE_SERVICE_PORT}
+     uri: http://config-service
+#uri: http://${CONFIG_SERVICE_SERVICE_HOST}:${CONFIG_SERVICE_SERVICE_PORT}

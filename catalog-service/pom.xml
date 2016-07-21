@@ -4,14 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>catalog-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>event-sourcing/catalog-service</name>
+	<name>demo/catalog-service</name>
 
 	<parent>
-		<groupId>org.kbastani</groupId>
-		<artifactId>event-sourcing</artifactId>
+		<groupId>org.t-systems</groupId>
+		<artifactId>demo-online-shop</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
@@ -30,14 +29,14 @@
 
 		<fabric8.service.name>${project.artifactId}</fabric8.service.name>
 		<fabric8.service.port>80</fabric8.service.port>
-		<fabric8.service.containerPort>7001</fabric8.service.containerPort>
+		<fabric8.service.containerPort>8080</fabric8.service.containerPort>
 		<fabric8.service.type>LoadBalancer</fabric8.service.type>
-
-		<!-- fabric8.readinessProbe.httpGet.port>7001</fabric8.readinessProbe.httpGet.port> 
+		
+		<!-- fabric8.readinessProbe.httpGet.port>7001</fabric8.readinessProbe.httpGet.port>
 		<fabric8.readinessProbe.httpGet.path>/health</fabric8.readinessProbe.httpGet.path>
 		<fabric8.readinessProbe.timeoutSeconds>5</fabric8.readinessProbe.timeoutSeconds>
 		<fabric8.readinessProbe.initialDelaySeconds>45</fabric8.readinessProbe.initialDelaySeconds-->
-		
+		<fabric8.label.hystrix.enabled>true</fabric8.label.hystrix.enabled>
 		<fabric8.label.group>catalog</fabric8.label.group>
 		<fabric8.iconRef>spring-boot-catalog</fabric8.iconRef>
 	</properties>
@@ -47,15 +46,6 @@
 		<!-- dependency> 
 			<groupId>io.dropwizard.metrics</groupId> <artifactId>metrics-graphite</artifactId> 
 			</dependency -->
-		<!-- hal browser -->
-		<!-- dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-rest-hal-browser</artifactId>
-		</dependency-->
-		<!-- dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-redis</artifactId>
-		</dependency-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -245,8 +235,8 @@
 			<properties>
 				<fabric8.recreate>true</fabric8.recreate>
 				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
-				<fabric8.env.MYSQL_SERVICE_HOST>172.30.233.72</fabric8.env.MYSQL_SERVICE_HOST>
-				<fabric8.env.MYSQL_SERVICE_PORT>3306</fabric8.env.MYSQL_SERVICE_PORT>
+				<!-- fabric8.env.MYSQL_SERVICE_HOST>172.30.233.72</fabric8.env.MYSQL_SERVICE_HOST>
+				<fabric8.env.MYSQL_SERVICE_PORT>3306</fabric8.env.MYSQL_SERVICE_PORT-->
 			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>
@@ -254,11 +244,6 @@
 		</profile>
 		<profile>
 			<id>f8-update-node</id>
-			<properties>
-				<fabric8.env.SPRING_PROFILES_ACTIVE>cloud</fabric8.env.SPRING_PROFILES_ACTIVE>
-				<fabric8.env.MYSQL_SERVICE_HOST>172.30.233.72</fabric8.env.MYSQL_SERVICE_HOST>
-				<fabric8.env.MYSQL_SERVICE_PORT>3306</fabric8.env.MYSQL_SERVICE_PORT>			
-			</properties>
 			<build>
 				<defaultGoal>clean install docker:build fabric8:delete-pods</defaultGoal>
 			</build>

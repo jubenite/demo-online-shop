@@ -40,8 +40,8 @@ public class ConfigApplication implements CommandLineRunner {
 			Authenticator.setDefault(new Authenticator() {
 			    protected PasswordAuthentication getPasswordAuthentication() {
 			        if (getRequestorType() == RequestorType.PROXY) {
-			            String user = "xxxx"; //System.getProperty("http.proxyUser");
-			            String password = "yyR"; //System.getProperty("http.proxyPassword");
+			            String user = httpProxy.getUser();
+			            String password = httpProxy.getPassword();
 	                    return new PasswordAuthentication(user, password.toCharArray());
 			        }
 			        return null;

@@ -16,6 +16,8 @@ http:
  proxy:
   host: 10.49.1.1
   port: 8080
+  user: xxxxx
+  password: xxxxxx
 ---
 spring:
   profiles: cloud
@@ -28,6 +30,10 @@ http:
  proxy:
   host: 10.49.1.1
   port: 8080
+  user: xxxxx
+  password: xxxxx
+logging:
+  config: classpath:log-cloud.xml
 ---
 spring:
   profiles: no_proxy
@@ -36,7 +42,7 @@ spring:
     server:
      git:
       uri: https://github.com/jubenite/demo-config-repo
-
+      
 #logging:
 #native:
 #searchLocations: file:///D:/data/repo_local/microservices/git/demo-config-repo
