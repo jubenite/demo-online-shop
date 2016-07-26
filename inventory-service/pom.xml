@@ -68,27 +68,37 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
-		<!-- dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-sleuth-stream</artifactId> 
-			</dependency -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
 		</dependency>
-		<!-- dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-stream-binder-rabbit</artifactId> 
-			</dependency -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- sleuth stream for zipkin integration -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-sleuth-stream</artifactId>
+		</dependency>
+		<!-- rabbit stream binder for zipkin integration -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+		</dependency>
+		<!-- neo4j related dependencies -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-neo4j</artifactId>
 			<version>${spring-data-neo4j.version}</version><!--$NO-MVN-MAN-VER$ -->
-		</dependency>
-		
+		</dependency>	
 		<!-- add this dependency if you want to use the embedded driver -->
 		<dependency>
     		<groupId>org.neo4j</groupId>
     		<artifactId>neo4j-ogm-embedded-driver</artifactId>
     		<version>${neo4j-ogm.version}</version>
 		</dependency>
-
 		<!-- Neo4j testing -->
 		  <dependency>
            <groupId>org.springframework.data</groupId>
@@ -96,7 +106,6 @@
            <version>${spring-data-neo4j.version}</version>
            <type>test-jar</type>
        </dependency>
-
          <!-- the neo4j-ogm-test jar provides access to the http and embedded drivers for testing purposes -->
         <dependency>
           <groupId>org.neo4j</groupId>
@@ -121,11 +130,6 @@
 			<groupId>org.neo4j.test</groupId>
 			<artifactId>neo4j-harness</artifactId>
 			<version>${neo4j.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

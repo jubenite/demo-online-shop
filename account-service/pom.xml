@@ -62,16 +62,20 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
-		<!-- sleuth stream for zipkin integration -->
-		<!-- >dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-sleuth-stream</artifactId> 
-			</dependency -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
 		</dependency>
-		<!-- rabbit stream for zipkin integration -->
-		<!-- dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-stream-binder-rabbit</artifactId> 
-			</dependency -->
+		<!-- sleuth stream for zipkin integration -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-sleuth-stream</artifactId>
+		</dependency>
+		<!-- rabbit stream binder for zipkin integration -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-oauth2</artifactId>
@@ -96,7 +100,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<!-- Compiler plugin enforces Java 1.7 compatibility and activates annotation 
@@ -186,11 +190,10 @@
 	</build>
 
 	<!-- Default sample commands: 
-		mvn -Pf8-build ... build Docker images and create OpenShift deployment configs
-		mvn -Pf8-deploy-registry ... f8-build + push to Docker registry + applying deployment config to OpenShift
-		mvn -Pf8-deploy-node ... deployment for a single node setup without pushing to a registry
-		mvn -Pf8-update-node ... update image and recreate pods without a deployment in Kubernetes
-		For individual goal usage please consult the fabric8 documentation -->
+		mvn -Pf8-build ... build Docker images and create OpenShift deployment configs 
+		mvn -Pf8-deploy-registry ... f8-build + push to Docker registry + applying deployment config to OpenShift 
+		mvn -Pf8-deploy-node ... deployment for a single node setup without pushing to a registry 
+		mvn -Pf8-update-node ... update image and recreate pods without a deployment in Kubernetes For individual goal usage please consult the fabric8 documentation -->
 	<profiles>
 		<profile>
 			<id>f8-build</id>

@@ -47,32 +47,21 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
 		</dependency>
-		<!-- dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-sleuth-stream</artifactId> 
-			</dependency -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
 		</dependency>
-		<!-- dependency> 
-			<groupId>org.springframework.cloud</groupId> 
-			<artifactId>spring-cloud-stream-binder-rabbit</artifactId> 
-			</dependency -->
-		<!-- dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency -->
+		<!-- sleuth stream for zipkin integration -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-sleuth-stream</artifactId>
+		</dependency>
+		<!-- rabbit stream binder for zipkin integration -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+		</dependency>
 	</dependencies>
-
-	<!-- build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
-		<artifactId>spring-boot-maven-plugin</artifactId> </plugin> <plugin> <groupId>com.spotify</groupId> 
-		<artifactId>docker-maven-plugin</artifactId> <version>${docker.plugin.version}</version> 
-		<executions> <execution> <phase>install</phase> <goals> <goal>build</goal> 
-		</goals> </execution> </executions> <configuration> <imageName>${docker.image.prefix}/${project.artifactId}</imageName> 
-		<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory> <resources> 
-		<resource> <targetPath>/</targetPath> <directory>${project.build.directory}</directory> 
-		<include>${project.build.finalName}.jar</include> </resource> </resources> 
-		</configuration> </plugin> </plugins> </build -->
 
 	<build>
 		<plugins>
